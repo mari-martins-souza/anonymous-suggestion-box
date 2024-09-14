@@ -1,5 +1,6 @@
 package com.anonymous_suggestion_box.anonymous_suggestion_box.controllers;
 
+import com.anonymous_suggestion_box.anonymous_suggestion_box.dtos.SugestaoConsultaDTO;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.dtos.SugestaoRequestDTO;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.dtos.SugestaoResponseDTO;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.services.SugestaoService;
@@ -10,10 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sugestoes")
@@ -31,4 +31,13 @@ public class SugestaoController {
         logger.info("sugestão criada com sucesso: {}, sugestaoResponseDTO");
         return new ResponseEntity<>(sugestaoResponseDTO, HttpStatus.CREATED);
     }
+
+    @GetMapping
+    public ResponseEntity<List<SugestaoConsultaDTO>> consultaTodasSugestoes(
+            @RequestParam(required = false) String tituloSugestao) {
+
+        List<SugestaoConsultaDTO> sugestoes = sugestaoService.consultaTodasSugestoes();
+        return ResponseEntity.ok(sugestoes);
+    }
+
 }

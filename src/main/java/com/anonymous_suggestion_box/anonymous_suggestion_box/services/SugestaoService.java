@@ -1,5 +1,6 @@
 package com.anonymous_suggestion_box.anonymous_suggestion_box.services;
 
+import com.anonymous_suggestion_box.anonymous_suggestion_box.dtos.SugestaoConsultaDTO;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.dtos.SugestaoRequestDTO;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.dtos.SugestaoResponseDTO;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.entities.Sugestao;
@@ -8,7 +9,11 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SugestaoService {
@@ -32,6 +37,10 @@ public class SugestaoService {
         return modelMapper.map(sugestaoRequestDTO, Sugestao.class);
     }
 
+    public SugestaoConsultaDTO convertConsultaToDto(Sugestao sugestao) {
+        return modelMapper.map(sugestao, SugestaoConsultaDTO.class);
+    }
+
 
 
     public SugestaoResponseDTO criaSugestao(SugestaoRequestDTO sugestaoRequestDTO) {
@@ -42,5 +51,11 @@ public class SugestaoService {
 
         logger.info("sugestão criada e salva no banco de dados: {}, sugestaoResponseDTO");
         return convertToDto(sugestaoSalva);
+    }
+
+    public List<SugestaoConsultaDTO> consultaTodasSugestoes() {
+        return sugestaoRepository.findAll(Sort.by(Sort.Direction.DESC, "dataAtualizacao")).stream()
+                .map(this::convertConsultaToDto)
+                .collect(Collectors.toList());
     }
 }
