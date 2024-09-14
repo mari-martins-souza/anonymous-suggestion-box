@@ -31,4 +31,35 @@ public class Resposta {
     @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
     private LocalDateTime dataEnvio;
 
+    public Sugestao getSugestao() {
+        return sugestao;
+    }
+
+    public void setSugestao(Sugestao sugestao) {
+        this.sugestao = sugestao;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public @NotBlank @Size(min = 16, max = 256) String getTextoResposta() {
+        return textoResposta;
+    }
+
+    public void setTextoResposta(@NotBlank @Size(min = 16, max = 256) String textoResposta) {
+        this.textoResposta = textoResposta;
+    }
+
+    public @NotNull LocalDateTime getDataEnvio() {
+        return dataEnvio;
+    }
+
+    public void setDataEnvio(@NotNull LocalDateTime dataEnvio) {
+        this.dataEnvio = dataEnvio;
+    }
 }

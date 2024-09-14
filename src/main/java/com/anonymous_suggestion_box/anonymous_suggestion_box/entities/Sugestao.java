@@ -33,13 +33,61 @@ public class Sugestao {
 
     @NotNull
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
+    @DateTimeFormat(pattern = "dd-MM-yyyy' 'HH:mm")
     private LocalDateTime dataEnvio;
 
     @NotNull
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
+    @DateTimeFormat(pattern = "dd-MM-yyyy' 'HH:mm")
     private LocalDateTime dataAtualizacao;
+
+    public Resposta getResposta() {
+        return resposta;
+    }
+
+    public void setResposta(Resposta resposta) {
+        this.resposta = resposta;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public @NotBlank @Size(max = 64) String getTituloSugestao() {
+        return tituloSugestao;
+    }
+
+    public void setTituloSugestao(@NotBlank @Size(max = 64) String tituloSugestao) {
+        this.tituloSugestao = tituloSugestao;
+    }
+
+    public @NotBlank @Size(min = 16, max = 256) String getDescricaoSugestao() {
+        return descricaoSugestao;
+    }
+
+    public void setDescricaoSugestao(@NotBlank @Size(min = 16, max = 256) String descricaoSugestao) {
+        this.descricaoSugestao = descricaoSugestao;
+    }
+
+    public @NotNull LocalDateTime getDataEnvio() {
+        return dataEnvio;
+    }
+
+    public void setDataEnvio(@NotNull LocalDateTime dataEnvio) {
+        this.dataEnvio = dataEnvio;
+    }
+
+    public @NotNull LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(@NotNull LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
 }
 
 
