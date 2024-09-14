@@ -36,8 +36,14 @@ public class SugestaoController {
     public ResponseEntity<List<SugestaoConsultaDTO>> consultaTodasSugestoes(
             @RequestParam(required = false) String tituloSugestao) {
 
-        List<SugestaoConsultaDTO> sugestoes = sugestaoService.consultaTodasSugestoes();
+        List<SugestaoConsultaDTO> sugestoes = sugestaoService.consultaTodasSugestoes(tituloSugestao);
         return ResponseEntity.ok(sugestoes);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SugestaoResponseDTO> consultaSugestaoPorId(@PathVariable Long id) {
+        SugestaoResponseDTO sugestao = sugestaoService.consultaSugestaoPorId(id);
+        return ResponseEntity.ok(sugestao);
     }
 
 }

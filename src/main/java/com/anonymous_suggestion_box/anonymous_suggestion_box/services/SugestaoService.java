@@ -5,6 +5,7 @@ import com.anonymous_suggestion_box.anonymous_suggestion_box.dtos.SugestaoReques
 import com.anonymous_suggestion_box.anonymous_suggestion_box.dtos.SugestaoResponseDTO;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.entities.Sugestao;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.repositories.SugestaoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,9 +54,22 @@ public class SugestaoService {
         return convertToDto(sugestaoSalva);
     }
 
-    public List<SugestaoConsultaDTO> consultaTodasSugestoes() {
-        return sugestaoRepository.findAll(Sort.by(Sort.Direction.DESC, "dataAtualizacao")).stream()
+    public List<SugestaoConsultaDTO> consultaTodasSugestoes(String tituloSugestao) {
+        List<Sugestao> sugestoes;
+        if (tituloSugestao != null && !tituloSugestao.isEmpty()) {
+            sugestoes =
+                    sugestaoRepository.findByTituloSugestaoContainingIgnoreCaseOrderByDataAtualizacaoDesc(tituloSugestao);
+        } else {
+            sugestoes = sugestaoRepository.findAll(Sort.by(Sort.Direction.DESC, "dataAtualizacao"));
+        }
+        return sugestoes.stream()
                 .map(this::convertConsultaToDto)
                 .collect(Collectors.toList());
+    }
+
+    public SugestaoResponseDTO consultaSugestaoPorId(Long id) {
+        Sugestao sugestao = sugestaoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Sugestão não encontrada"));
+        return convertToDto((sugestao));
     }
 }
