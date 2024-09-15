@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Table(name="respostas")
 public class Resposta {
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="sugestao_id", nullable = false)
     private Sugestao sugestao;
 
@@ -28,7 +28,7 @@ public class Resposta {
 
     @NotNull
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
+    @DateTimeFormat(pattern = "dd-MM-yyyy' 'HH:mm")
     private LocalDateTime dataEnvio;
 
     public Sugestao getSugestao() {

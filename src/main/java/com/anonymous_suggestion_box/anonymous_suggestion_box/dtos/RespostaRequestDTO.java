@@ -1,11 +1,16 @@
 package com.anonymous_suggestion_box.anonymous_suggestion_box.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 public class RespostaRequestDTO {
 
     private String textoResposta;
+
+    @JsonFormat(pattern = "dd-MM-yyyy' 'HH:mm")
     private LocalDateTime dataEnvio;
+
     private Long sugestaoId;
 
     public String getTextoResposta() {

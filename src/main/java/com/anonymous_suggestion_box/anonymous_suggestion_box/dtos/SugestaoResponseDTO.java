@@ -1,8 +1,11 @@
 package com.anonymous_suggestion_box.anonymous_suggestion_box.dtos;
 
+import com.anonymous_suggestion_box.anonymous_suggestion_box.entities.Resposta;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SugestaoResponseDTO {
 
@@ -15,6 +18,8 @@ public class SugestaoResponseDTO {
 
     @JsonFormat(pattern = "dd-MM-yyyy' 'HH:mm")
     private LocalDateTime dataAtualizacao;
+
+//    private List<Resposta> respostas = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -56,4 +61,11 @@ public class SugestaoResponseDTO {
         this.dataAtualizacao = dataAtualizacao;
     }
 
+//    public List<Resposta> getRespostas() {
+//        return respostas;
+//    }
+//
+//    public void setRespostas(List<Resposta> respostas) {
+//        this.respostas = respostas;
+//    }
 }

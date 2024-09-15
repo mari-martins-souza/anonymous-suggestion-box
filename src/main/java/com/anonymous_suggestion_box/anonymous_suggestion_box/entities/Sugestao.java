@@ -8,13 +8,15 @@ import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="sugestoes")
 public class Sugestao {
 
-    @OneToOne(mappedBy = "sugestao", cascade = CascadeType.ALL)
-    private Resposta resposta;
+    @OneToMany(mappedBy = "sugestao", cascade = CascadeType.ALL)
+    private List<Resposta> respostas = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
@@ -41,12 +43,12 @@ public class Sugestao {
     @DateTimeFormat(pattern = "dd-MM-yyyy' 'HH:mm")
     private LocalDateTime dataAtualizacao;
 
-    public Resposta getResposta() {
-        return resposta;
+    public List<Resposta> getRespostas() {
+        return respostas;
     }
 
-    public void setResposta(Resposta resposta) {
-        this.resposta = resposta;
+    public void setRespostas(List<Resposta> respostas) {
+        this.respostas = respostas;
     }
 
     public Long getId() {

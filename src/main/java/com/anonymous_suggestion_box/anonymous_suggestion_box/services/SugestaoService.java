@@ -28,8 +28,6 @@ public class SugestaoService {
     private SugestaoRepository sugestaoRepository;
 
 
-
-
     public SugestaoResponseDTO convertToDto(Sugestao sugestao) {
         return modelMapper.map(sugestao, SugestaoResponseDTO.class);
     }
