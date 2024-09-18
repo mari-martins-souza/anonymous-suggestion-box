@@ -3,6 +3,8 @@ package com.anonymous_suggestion_box.anonymous_suggestion_box.controllers;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.dtos.RespostaRequestDTO;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.dtos.RespostaResponseDTO;
 import com.anonymous_suggestion_box.anonymous_suggestion_box.services.RespostaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/sugestoes/{id}/respostas")
+@Tag(name= "Comentários/Respostas")
 public class RespostaController {
 
     private static final Logger logger = LoggerFactory.getLogger(RespostaController.class);
@@ -25,6 +28,8 @@ public class RespostaController {
     private RespostaService respostaService;
 
     @PostMapping
+    @Operation(summary = "Responde/comenta sugestão existente", description = "Registra uma resposta/comentário " +
+            "para uma sugestão existente, identificando a sugestão pelo id")
     public ResponseEntity<RespostaResponseDTO> criaResposta(@Valid @RequestBody RespostaRequestDTO respostaRequestDTO) throws BadRequestException {
         logger.info("recebendo solicitação para criar nova resposta: {}, respostaRequestDTO");
         RespostaResponseDTO respostaResponseDTO = respostaService.criaResposta(respostaRequestDTO);
